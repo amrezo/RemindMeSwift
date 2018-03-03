@@ -7,11 +7,26 @@
 //
 
 import UIKit
+import RealmSwift
 
 class RemindersTableViewController: UITableViewController {
 
+    // Realm var for easy access
+    var realm: Realm!
+    
+    // Todo list that will store the todo items
+    var remindersList: Results<ReminderItem> {
+        
+        get {
+            return realm.objects(ReminderItem.self)
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Init realm
+        realm = try! Realm()
         
         NotificationCenter.default.addObserver(self, selector: #selector(reloadTableData), name: .reload, object: nil)
 
@@ -26,7 +41,7 @@ class RemindersTableViewController: UITableViewController {
         
         // When the reminder list is empty, display the placeholder
         
-        if remindersArray.count == 0 {
+        if remindersList.count == 0 {
             
             // Placeholder creation, displayed when the tableView is empty
             let placeholderTitle = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
@@ -54,13 +69,13 @@ class RemindersTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return remindersArray.count
+        return remindersList.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ReminderCell", for: indexPath)
         
-        let reminderItem = remindersArray[indexPath.row]
+        let reminderItem = remindersList[indexPath.row]
         
         cell.textLabel?.text! = reminderItem.name
         cell.detailTextLabel?.text! = reminderItem.date
@@ -79,14 +94,11 @@ class RemindersTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        var reminderItem = remindersArray[indexPath.row]
-        
-        if reminderItem.complete == true {
-            reminderItem.complete = false
-            
-        } else {
-            reminderItem.complete = true
-        }
+        let reminderItem = remindersList[indexPath.row]
+
+        try! realm.write ({
+            reminderItem.complete = !reminderItem.complete
+        })
         
         tableView.reloadRows(at: [indexPath], with: .automatic)
         
@@ -95,7 +107,13 @@ class RemindersTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             
-            remindersArray.remove(at: indexPath.row)
+            let reminderItem = remindersList[indexPath.row]
+
+            try! realm.write({
+                
+                realm.delete(reminderItem)
+            })
+            
             tableView.deleteRows(at: [indexPath], with: .automatic)
         }
     }

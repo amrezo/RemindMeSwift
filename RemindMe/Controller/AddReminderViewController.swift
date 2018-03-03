@@ -7,16 +7,23 @@
 //
 
 import UIKit
+import RealmSwift
 
-var remindersArray = [Reminder]()
 
 class AddReminderViewController: UIViewController, UITextFieldDelegate {
+    
+    // Realm var for easy access
+    var realm: Realm!
+    
 
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var reminderName: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Init realm
+        realm = try! Realm()
         
         self.reminderName.delegate = self
         
@@ -37,8 +44,15 @@ class AddReminderViewController: UIViewController, UITextFieldDelegate {
         dateFormatter.dateFormat = "EEEE, MMM dd, yyyy - h:mm a"
         let dateString = dateFormatter.string(from: datePicker.date)
         
-        let reminder = Reminder(name: reminderName.text!, date: dateString, complete: false)
-        remindersArray.append(reminder)
+        let newReminder = ReminderItem()
+        newReminder.name = reminderName.text!
+        newReminder.date = dateString
+        newReminder.complete = false
+        
+        try! self.realm.write({
+            
+            self.realm.add(newReminder)
+        })
         
         NotificationCenter.default.post(name: .reload, object: nil)
         
