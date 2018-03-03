@@ -8,6 +8,7 @@
 
 import UIKit
 import RealmSwift
+import UserNotifications
 
 
 class AddReminderViewController: UIViewController, UITextFieldDelegate {
@@ -55,6 +56,22 @@ class AddReminderViewController: UIViewController, UITextFieldDelegate {
         })
         
         NotificationCenter.default.post(name: .reload, object: nil)
+        
+        let content = UNMutableNotificationContent()
+        content.title = "Reminder!"
+        content.body = "It's time to \(newReminder.name)"
+        content.sound = UNNotificationSound.default()
+        
+        
+        // MARK: Fix this
+        let units: Set<Calendar.Component> = [.minute, .hour, .day, .month, .year]
+        let components = Calendar.current.dateComponents(units, from: datePicker.date)
+        
+        let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
+        
+        let request = UNNotificationRequest(identifier: "reminder", content: content, trigger: trigger)
+        
+        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
         
         dismiss(animated: true, completion: nil)
         
