@@ -8,20 +8,24 @@
 
 /* Begin PBXBuildFile section */
 		B52BC66C2048F78E00E68AFC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52BC66B2048F78E00E68AFC /* AppDelegate.swift */; };
-		B52BC66E2048F78E00E68AFC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52BC66D2048F78E00E68AFC /* ViewController.swift */; };
+		B52BC66E2048F78E00E68AFC /* RemindersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52BC66D2048F78E00E68AFC /* RemindersTableViewController.swift */; };
 		B52BC6712048F78E00E68AFC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B52BC66F2048F78E00E68AFC /* Main.storyboard */; };
 		B52BC6732048F78E00E68AFC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B52BC6722048F78E00E68AFC /* Assets.xcassets */; };
 		B52BC6762048F78E00E68AFC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B52BC6742048F78E00E68AFC /* LaunchScreen.storyboard */; };
+		B52BC67E2048FB9C00E68AFC /* AddReminderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52BC67D2048FB9C00E68AFC /* AddReminderViewController.swift */; };
+		B52BC684204A473A00E68AFC /* ReminderStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52BC683204A473A00E68AFC /* ReminderStruct.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		B52BC6682048F78E00E68AFC /* RemindMe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RemindMe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B52BC66B2048F78E00E68AFC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		B52BC66D2048F78E00E68AFC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		B52BC66D2048F78E00E68AFC /* RemindersTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemindersTableViewController.swift; sourceTree = "<group>"; };
 		B52BC6702048F78E00E68AFC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B52BC6722048F78E00E68AFC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B52BC6752048F78E00E68AFC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B52BC6772048F78E00E68AFC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B52BC67D2048FB9C00E68AFC /* AddReminderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddReminderViewController.swift; sourceTree = "<group>"; };
+		B52BC683204A473A00E68AFC /* ReminderStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderStruct.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,14 +58,48 @@
 		B52BC66A2048F78E00E68AFC /* RemindMe */ = {
 			isa = PBXGroup;
 			children = (
-				B52BC66B2048F78E00E68AFC /* AppDelegate.swift */,
-				B52BC66D2048F78E00E68AFC /* ViewController.swift */,
-				B52BC66F2048F78E00E68AFC /* Main.storyboard */,
-				B52BC6722048F78E00E68AFC /* Assets.xcassets */,
-				B52BC6742048F78E00E68AFC /* LaunchScreen.storyboard */,
-				B52BC6772048F78E00E68AFC /* Info.plist */,
+				B52BC6822049063C00E68AFC /* Model */,
+				B52BC6802049062200E68AFC /* View */,
+				B52BC67F204905FC00E68AFC /* Controller */,
+				B52BC6812049062A00E68AFC /* Supporting Files */,
 			);
 			path = RemindMe;
+			sourceTree = "<group>";
+		};
+		B52BC67F204905FC00E68AFC /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				B52BC66B2048F78E00E68AFC /* AppDelegate.swift */,
+				B52BC66D2048F78E00E68AFC /* RemindersTableViewController.swift */,
+				B52BC67D2048FB9C00E68AFC /* AddReminderViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		B52BC6802049062200E68AFC /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B52BC66F2048F78E00E68AFC /* Main.storyboard */,
+				B52BC6742048F78E00E68AFC /* LaunchScreen.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		B52BC6812049062A00E68AFC /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				B52BC6722048F78E00E68AFC /* Assets.xcassets */,
+				B52BC6772048F78E00E68AFC /* Info.plist */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		B52BC6822049063C00E68AFC /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B52BC683204A473A00E68AFC /* ReminderStruct.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -136,7 +174,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B52BC66E2048F78E00E68AFC /* ViewController.swift in Sources */,
+				B52BC66E2048F78E00E68AFC /* RemindersTableViewController.swift in Sources */,
+				B52BC67E2048FB9C00E68AFC /* AddReminderViewController.swift in Sources */,
+				B52BC684204A473A00E68AFC /* ReminderStruct.swift in Sources */,
 				B52BC66C2048F78E00E68AFC /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -276,12 +316,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = NNXMK3EBZA;
-				INFOPLIST_FILE = RemindMe/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/RemindMe/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.amrezo.RemindMe;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -291,12 +331,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = NNXMK3EBZA;
-				INFOPLIST_FILE = RemindMe/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/RemindMe/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.amrezo.RemindMe;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
