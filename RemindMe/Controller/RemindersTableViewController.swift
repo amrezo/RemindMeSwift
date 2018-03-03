@@ -23,6 +23,13 @@ class RemindersTableViewController: UITableViewController {
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(willEnterForeground), name: .UIApplicationWillEnterForeground, object: nil)
+
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -96,6 +103,8 @@ class RemindersTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let reminderItem = remindersList[indexPath.row]
+        
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [reminderItem.name])
 
         try! realm.write ({
             reminderItem.complete = !reminderItem.complete
@@ -123,12 +132,31 @@ class RemindersTableViewController: UITableViewController {
     }
     
     
-    func deleteReminder() {
-        // TODO: Delete reminder from database + tableview
+    func deleteReminder(withIdentifier id: String) {
+        
+        realm = try! Realm()
+        
+        let reminderItem = remindersList.filter("name == %@", id).first!
+        
+        try! realm.write({
+            
+            realm.delete(reminderItem)
+        })
     }
     
-    func doneReminder() {
-       //TODO: Mark reminder as done in tableView with a checkmark + update as complete == true in database
+    func doneReminder(withIdentifier id: String) {
+        
+        realm = try! Realm()
+        
+        let reminderItem = remindersList.filter("name == %@", id).first!
+        
+        try! realm.write ({
+            reminderItem.complete = !reminderItem.complete
+        })
+    }
+    
+    @objc func willEnterForeground() {
+        self.tableView.reloadData()
     }
     
 }

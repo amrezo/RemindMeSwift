@@ -23,15 +23,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         
+        let id = response.notification.request.identifier
+        
         switch response.actionIdentifier {
             case UNNotificationDismissActionIdentifier:
                 print("Dismiss Action")
             case UNNotificationDefaultActionIdentifier:
                 print("Default")
             case "Done":
-                remindersTVC.doneReminder()
+                remindersTVC.doneReminder(withIdentifier: id)
             case "Delete":
-                remindersTVC.deleteReminder()
+                remindersTVC.deleteReminder(withIdentifier: id)
             default:
                 print("Unknown action")
         }
