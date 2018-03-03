@@ -72,7 +72,7 @@
         <!--Add Reminder View Controller-->
         <scene sceneID="bYm-ON-OI3">
             <objects>
-                <viewController id="0zK-aQ-CCp" customClass="AddReminderViewController" customModule="RemindMe" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="addReminderVC" id="0zK-aQ-CCp" customClass="AddReminderViewController" customModule="RemindMe" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="X85-7n-5W4">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

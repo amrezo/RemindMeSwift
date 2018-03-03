@@ -14,7 +14,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
     var window: UIWindow?
     var remindersTVC = RemindersTableViewController()
-
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         
@@ -75,6 +74,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    }
+    
+    func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let addReminderVC = storyboard.instantiateViewController(withIdentifier: "addReminderVC") as! AddReminderViewController
+
+        if shortcutItem.type == "com.amrezo.RemindMe.newReminder" {
+
+            self.window?.rootViewController?.present(addReminderVC, animated: true, completion: nil)
+        }
+        
     }
 
 
