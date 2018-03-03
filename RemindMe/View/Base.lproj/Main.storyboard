@@ -156,6 +156,7 @@
                         <viewLayoutGuide key="safeArea" id="syq-k1-7PE"/>
                     </view>
                     <connections>
+                        <outlet property="addButton" destination="xRV-s6-0eg" id="rYt-GR-ahh"/>
                         <outlet property="datePicker" destination="8Mi-Ja-KWg" id="aXI-Gf-xtA"/>
                         <outlet property="reminderName" destination="6BD-9T-V4J" id="71h-qe-NgV"/>
                     </connections>

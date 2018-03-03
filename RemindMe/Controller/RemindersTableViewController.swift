@@ -8,6 +8,7 @@
 
 import UIKit
 import RealmSwift
+import UserNotifications
 
 class RemindersTableViewController: UITableViewController {
 
@@ -108,6 +109,8 @@ class RemindersTableViewController: UITableViewController {
         if editingStyle == .delete {
             
             let reminderItem = remindersList[indexPath.row]
+            
+            UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [reminderItem.name])
 
             try! realm.write({
                 
@@ -115,7 +118,17 @@ class RemindersTableViewController: UITableViewController {
             })
             
             tableView.deleteRows(at: [indexPath], with: .automatic)
+            
         }
+    }
+    
+    
+    func deleteReminder() {
+        // TODO: Delete reminder from database + tableview
+    }
+    
+    func doneReminder() {
+       //TODO: Mark reminder as done in tableView with a checkmark + update as complete == true in database
     }
     
 }

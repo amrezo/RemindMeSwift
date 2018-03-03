@@ -13,18 +13,40 @@ import UserNotifications
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
     var window: UIWindow?
+    var remindersTVC = RemindersTableViewController()
 
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        
         completionHandler([.alert, .sound])
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        
+        switch response.actionIdentifier {
+            case UNNotificationDismissActionIdentifier:
+                print("Dismiss Action")
+            case UNNotificationDefaultActionIdentifier:
+                print("Default")
+            case "Done":
+                remindersTVC.doneReminder()
+            case "Delete":
+                remindersTVC.deleteReminder()
+            default:
+                print("Unknown action")
+        }
+        
+        completionHandler()
+        
     }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
-        UNUserNotificationCenter.current().delegate = self
+        let center = UNUserNotificationCenter.current()
+
+        center.delegate = self
         
-        
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { (granted, error) in
+        center.requestAuthorization(options: [.alert, .badge, .sound]) { (granted, error) in
             print("Granted: \(granted)")
         }
         

@@ -19,6 +19,7 @@ class AddReminderViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var reminderName: UITextField!
+    @IBOutlet weak var addButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,14 +63,24 @@ class AddReminderViewController: UIViewController, UITextFieldDelegate {
         content.body = "It's time to \(newReminder.name)"
         content.sound = UNNotificationSound.default()
         
+        let center = UNUserNotificationCenter.current()
         
-        // MARK: Fix this
+        let doneAction = UNNotificationAction(identifier: "Done", title: "Done", options: [])
+        let deleteAction = UNNotificationAction(identifier: "Delete", title: "Delete", options: [.destructive])
+        
+        let category = UNNotificationCategory(identifier: "ReminderCategory", actions: [doneAction,deleteAction], intentIdentifiers: [], options: [])
+        
+        center.setNotificationCategories([category])
+        
+        content.categoryIdentifier = "ReminderCategory"
+        
+        
         let units: Set<Calendar.Component> = [.minute, .hour, .day, .month, .year]
         let components = Calendar.current.dateComponents(units, from: datePicker.date)
         
         let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: false)
         
-        let request = UNNotificationRequest(identifier: "reminder", content: content, trigger: trigger)
+        let request = UNNotificationRequest(identifier: newReminder.name, content: content, trigger: trigger)
         
         UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
         
