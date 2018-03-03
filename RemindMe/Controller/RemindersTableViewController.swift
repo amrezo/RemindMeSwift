@@ -14,7 +14,7 @@ class RemindersTableViewController: UITableViewController {
     // Realm var for easy access
     var realm: Realm!
     
-    // Todo list that will store the todo items
+    // Reminder List that will store the reminder items
     var remindersList: Results<ReminderItem> {
         
         get {
